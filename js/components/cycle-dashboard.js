@@ -86,7 +86,6 @@ export async function renderStats(container) {
 function renderDotCalendar(container, periods, metrics) {
   const year = new Date().getFullYear();
   const monthCount = 12;
-  const cellSize = 10;
   const gap = 2;
 
   const periodDays = new Set();
