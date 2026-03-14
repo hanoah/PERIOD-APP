@@ -6,6 +6,7 @@ import { getPeriods } from '../db.js';
 import { savePeriod } from '../db.js';
 import { computeMetrics } from '../metrics.js';
 import { formatDate, formatDateShort, showToast, debounce } from '../utils.js';
+import { icon } from '../icons.js';
 import { renderSymptomGrid } from './symptom-grid.js';
 
 const SYMPTOM_LABELS = {
@@ -60,7 +61,7 @@ export async function renderHome(container) {
 
       <div class="period-btn-wrap">
         <button class="btn btn-primary period-btn" id="period-btn" type="button" aria-label="${hasOpen ? 'End period' : 'Start period'}">
-          <span class="period-btn-icon" aria-hidden="true">${hasOpen ? '○' : '●'}</span>
+          <span class="period-btn-icon" aria-hidden="true">${hasOpen ? icon('circle') : icon('circle-filled')}</span>
           <span>${hasOpen ? 'Period Ended' : 'Period Started'}</span>
         </button>
       </div>

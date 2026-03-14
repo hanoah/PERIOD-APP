@@ -4,6 +4,7 @@
 
 import { getPeriods, savePeriod, deletePeriod } from '../db.js';
 import { formatDateShort, showToast } from '../utils.js';
+import { icon } from '../icons.js';
 import { renderSymptomGrid } from './symptom-grid.js';
 
 const SYMPTOM_LABELS = {
@@ -160,8 +161,8 @@ function renderHistoryEntry(parent, entry) {
         ${forgotIndicator ? '<span class="history-forgot"> — Consider ending?</span>' : ''}
       </div>
       <div class="history-entry-actions">
-        <button type="button" class="btn btn-ghost history-edit-btn" aria-label="Edit">✎</button>
-        <button type="button" class="btn btn-ghost history-delete-btn" aria-label="Delete">⌫</button>
+        <button type="button" class="btn btn-ghost history-edit-btn" aria-label="Edit">${icon('pen')}</button>
+        <button type="button" class="btn btn-ghost history-delete-btn" aria-label="Delete">${icon('trash')}</button>
       </div>
     </div>
     ${duration != null ? `<p class="history-duration">${duration} day${duration !== 1 ? 's' : ''}</p>` : ''}

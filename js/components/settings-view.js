@@ -57,6 +57,11 @@ export async function renderSettings(container) {
     </div>
 
     <div class="card">
+      <h3>Install on your phone</h3>
+      <p class="settings-hint">Add the app to your home screen for quick access.</p>
+      <a href="#/install" class="btn btn-secondary">How to install</a>
+    </div>
+    <div class="card">
       <h3>About</h3>
       <p>Period Tracker v0.1</p>
       <p id="dev-tap-count" data-count="0">Tap version 5 times to export data</p>

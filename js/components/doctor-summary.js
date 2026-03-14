@@ -6,6 +6,7 @@ import { getPeriods } from '../db.js';
 import { computeMetrics } from '../metrics.js';
 import { getSettings } from '../db.js';
 import { formatDate } from '../utils.js';
+import { icon } from '../icons.js';
 
 export async function renderDoctor(container) {
   const periods = await getPeriods();
@@ -65,8 +66,8 @@ export async function renderDoctor(container) {
         </table>
       </div>
       <div class="doctor-actions">
-        <button type="button" class="btn btn-primary" id="doctor-print">Print / Save as PDF</button>
-        <button type="button" class="btn btn-secondary" id="doctor-copy">Copy summary</button>
+        <button type="button" class="btn btn-primary" id="doctor-print">${icon('printer')} Print / Save as PDF</button>
+        <button type="button" class="btn btn-secondary" id="doctor-copy">${icon('duplicate')} Copy summary</button>
       </div>
     `}
   `;

@@ -4,11 +4,12 @@
 
 import { saveSettings } from '../db.js';
 import { applyTheme } from '../theme.js';
+import { icon } from '../icons.js';
 
 const MODES = [
-  { id: 'alien', name: 'Alien', desc: 'Sci-fi, playful', emoji: '👽' },
-  { id: 'girly', name: 'Girly', desc: 'Warm, expressive', emoji: '💅' },
-  { id: 'neutral', name: 'Neutral', desc: 'Clean, calm', emoji: '🔵' },
+  { id: 'alien', name: 'Alien', desc: 'Sci-fi, playful', iconName: 'star' },
+  { id: 'girly', name: 'Girly', desc: 'Warm, expressive', iconName: 'heart' },
+  { id: 'neutral', name: 'Neutral', desc: 'Clean, calm', iconName: 'bookmark' },
 ];
 
 const STORAGE_KEY = 'period-tracker-onboarding-done';
@@ -34,7 +35,7 @@ export function showOnboarding(container, onComplete) {
     card.className = 'onboarding-card';
     card.dataset.mode = m.id;
     card.innerHTML = `
-      <span class="onboarding-emoji">${m.emoji}</span>
+      <span class="onboarding-icon">${icon(m.iconName)}</span>
       <span class="onboarding-name">${m.name}</span>
       <span class="onboarding-desc">${m.desc}</span>
     `;

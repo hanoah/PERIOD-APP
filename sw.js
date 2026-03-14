@@ -1,6 +1,6 @@
 /* Service worker — cache app shell for offline */
 
-const CACHE_NAME = 'period-tracker-v6';
+const CACHE_NAME = 'period-tracker-v8';
 const ASSETS = [
   './',
   './index.html',
@@ -13,6 +13,7 @@ const ASSETS = [
   './js/app.js',
   './js/db.js',
   './js/metrics.js',
+  './js/icons.js',
   './js/symptom-icons.js',
   './js/theme.js',
   './js/utils.js',
@@ -24,6 +25,9 @@ const ASSETS = [
   './js/components/doctor-summary.js',
   './js/components/settings-view.js',
   './js/components/onboarding.js',
+  './js/components/install-guide.js',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
 ];
 
 self.addEventListener('install', (e) => {

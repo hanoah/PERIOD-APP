@@ -5,11 +5,13 @@
 import { open, isAvailable } from './db.js';
 import { syncOnLoad } from './sync.js';
 import { loadTheme, watchSystemTheme } from './theme.js';
+import { icon } from './icons.js';
 import { renderHome } from './components/period-button.js';
 import { renderStats } from './components/cycle-dashboard.js';
 import { renderHistory } from './components/history-list.js';
 import { renderDoctor } from './components/doctor-summary.js';
 import { renderSettings } from './components/settings-view.js';
+import { renderInstallGuide } from './components/install-guide.js';
 import { showOnboarding, hasCompletedOnboarding } from './components/onboarding.js';
 import { showToast } from './utils.js';
 
@@ -22,6 +24,7 @@ const ROUTES = {
   '/history': renderHistory,
   '/doctor': renderDoctor,
   '/settings': renderSettings,
+  '/install': renderInstallGuide,
 };
 
 async function init() {
@@ -46,10 +49,12 @@ async function init() {
   if (!completed) {
     showOnboarding(MAIN, () => {
       NAV.hidden = false;
+      initNav();
       route();
     });
   } else {
     NAV.hidden = false;
+    initNav();
     route();
   }
 
@@ -80,6 +85,25 @@ function route() {
       </div>
     `;
     document.getElementById('error-retry')?.addEventListener('click', () => route());
+  });
+}
+
+/** Replace nav placeholder icons with Pepicons SVGs. */
+function initNav() {
+  const ROUTE_ICONS = {
+    '/': 'house',
+    '/stats': 'calendar',
+    '/history': 'list',
+    '/doctor': 'clipboard',
+    '/settings': 'gear',
+  };
+  document.querySelectorAll('.nav-link').forEach((a) => {
+    const route = a.getAttribute('data-route');
+    const iconName = ROUTE_ICONS[route];
+    const span = a.querySelector('.nav-icon');
+    if (span && iconName) {
+      span.innerHTML = icon(iconName);
+    }
   });
 }
 

@@ -82,6 +82,15 @@ main {
 .nav-icon {
   font-size: var(--text-xl);
 }
+.nav-icon svg,
+.period-btn-icon svg,
+.btn svg,
+.streak-icon svg {
+  width: 1.25em;
+  height: 1.25em;
+  display: block;
+  fill: currentColor;
+}
 
 /* Page titles */
 .page-title {
@@ -323,6 +332,21 @@ label {
 .insight-list li {
   margin-bottom: var(--space-sm);
 }
+.install-intro {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-md);
+}
+.install-steps {
+  margin: 0 0 0 var(--space-lg);
+  padding: 0;
+}
+.install-steps li {
+  margin-bottom: var(--space-sm);
+}
+.install-actions {
+  margin-top: var(--space-lg);
+}
 .dot-calendar-grid {
   margin-top: var(--space-sm);
 }
@@ -363,8 +387,15 @@ label {
 .onboarding-card:hover {
   border-color: var(--color-primary);
 }
-.onboarding-emoji {
+.onboarding-emoji,
+.onboarding-icon {
   font-size: var(--text-4xl);
+}
+.onboarding-icon svg {
+  width: 1.25em;
+  height: 1.25em;
+  display: block;
+  fill: currentColor;
 }
 .onboarding-name {
   font-weight: var(--weight-semibold);

@@ -5,6 +5,7 @@
 import { getPeriods } from '../db.js';
 import { computeMetrics } from '../metrics.js';
 import { formatDateShort } from '../utils.js';
+import { icon } from '../icons.js';
 
 export async function renderStats(container) {
   const periods = await getPeriods();
@@ -48,7 +49,7 @@ export async function renderStats(container) {
 
       ${m.streak > 1 ? `
         <div class="card streak-badge">
-          <span class="streak-icon">🔥</span>
+          <span class="streak-icon">${icon('fire')}</span>
           You've logged ${m.streak} consecutive cycles
         </div>
       ` : ''}
