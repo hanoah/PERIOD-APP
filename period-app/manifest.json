@@ -1,0 +1,11 @@
+{
+  "name": "Period Tracker",
+  "short_name": "Period Tracker",
+  "description": "Private period tracker. Your data stays on your device.",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#6366f1",
+  "icons": []
+}

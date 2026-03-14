@@ -1,0 +1,43 @@
+Yes — absolutely. A PWA can use Google Sheets as its backend for a simple app or MVP. The usual setup is: your PWA is the frontend, and it reads/writes data through either the Google Sheets API or a small Google Apps Script web app that sits in front of the sheet. Google officially supports both approaches. ([Google for Developers][1])
+
+Where this works well:
+
+* lightweight CRUD apps
+* internal tools
+* prototypes
+* simple dashboards
+* forms, inventories, trackers, booking sheets, content lists
+
+Why it can be a good fit:
+
+* very fast to build
+* spreadsheet doubles as a simple admin panel
+* no separate database to manage
+* easy for non-technical people to edit data directly in Sheets
+* your PWA features like installability and offline support still come from the normal PWA pieces: manifest + service worker + HTTPS, not from the backend choice. ([MDN Web Docs][2])
+
+The main catch is scale and reliability. Google Sheets is not really a production database. Google documents API quotas and usage limits, and Sheets is best treated as a shared service with limits, not a high-concurrency backend. ([Google for Developers][3])
+
+A good rule of thumb:
+
+* **Good idea:** small user counts, low write volume, admin-managed data
+* **Bad idea:** lots of simultaneous users, complex permissions, heavy querying, transactional data, sensitive app logic
+
+Best architecture for this:
+
+1. PWA frontend in React / Next / plain JS
+2. Service worker for offline caching
+3. Google Apps Script or a small server API for reading/writing sheet data
+4. Google Sheet as storage/admin UI
+
+I would avoid calling the Sheets API directly from the browser for anything serious, because auth and permissions get messy. A thin API layer is cleaner. Google Apps Script web apps are a very common lightweight way to do that. ([Google for Developers][4])
+
+So the answer is:
+**Yes, you can build a real PWA with Google Sheets as the backend — and it’s a solid choice for an MVP or lightweight internal app.** For anything bigger, you’ll probably outgrow it and want Supabase, Firebase, Postgres, or something similar.
+
+If you want, I can sketch the simplest architecture for a **PWA + Google Sheets + Apps Script** setup in one diagram and give you starter code.
+
+[1]: https://developers.google.com/workspace/sheets/api/guides/concepts?utm_source=chatgpt.com "Google Sheets API Overview"
+[2]: https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest?utm_source=chatgpt.com "Web application manifest - Progressive web apps - MDN"
+[3]: https://developers.google.com/workspace/sheets/api/limits?utm_source=chatgpt.com "Usage limits | Google Sheets"
+[4]: https://developers.google.com/apps-script/guides/web?utm_source=chatgpt.com "Web Apps | Apps Script"

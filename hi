@@ -1,0 +1,55 @@
+Feature Icons — 3 variants each (Alien / Girly / Neutral)
+These are the personality icons. Each one needs a distinct visual per mode.
+
+Period Status (3 icons)
+#	Icon	Purpose	Alien Suggestion	Girly Suggestion	Neutral Suggestion
+1	Period Active	Home button when no period	UFO beam / portal	Flower bud / drop	Hollow circle
+2	Period On	Home button during period	Beam active / signal	Blooming flower / filled drop	Filled circle
+3	Period Ended	Confirmation state	"Transmission complete"	Petals settling	Circle with check
+Symptom Icons (12 icons)
+#	Icon	Alien Suggestion	Girly Suggestion	Neutral Suggestion
+4	Cramps	Lightning bolt / electric zap	Warm compress / heat wave	Zigzag wave
+5	Headache	Alien head with rings	Face with stars	Head silhouette + pulse
+6	Fatigue	Low battery alien	Sleepy eyes with lashes	Half-empty battery
+7	Bloating	Inflated alien	Puffy cloud	Expanded circle
+8	Mood Changes	Alien face shifting	Expressive face with lashes	Abstract face / mask
+9	Back Pain	Spine with sparks	Back with glow	Spine line + dot
+10	Breast Tenderness	Radar pings	Heart with ache lines	Two circles + pulse
+11	Nausea	Wobbly alien	Swirly tummy	Spiral
+12	Acne	Bumpy planet surface	Mirror with dots	Dotted circle
+13	Cravings	Alien eating a planet	Cookie / chocolate	Fork + magnet
+14	Insomnia	Alien wide-eyed at stars	Moon with open eyes	Clock + alert
+15	Flow Heavy	Overflowing beaker	Large drop	Thick bar / filled gauge
+Onboarding Card Illustrations (3 icons — one per mode, used once)
+#	Icon	Description
+16	Alien Card	A characterful alien that represents the whole mode — the "mascot" moment
+17	Girly Card	A warm, expressive illustration — florals, soft shapes, the vibe
+18	Neutral Card	Clean geometric composition — circles, lines, calm
+Shared UI Icons — 1 version, recolored by palette (no variants needed)
+These are functional. Design once in a neutral style, they'll pick up --color-primary / --color-text via CSS currentColor.
+
+#	Icon	Where Used
+19	Home	Nav
+20	Stats/Dashboard	Nav
+21	History/List	Nav
+22	Settings Gear	Nav
+23	Calendar	Dashboard
+24	Back Arrow	Sub-pages
+25	Edit Pencil	History entries
+26	Delete Trash	History entries
+27	Check / Confirm	Dialogs
+28	Close / X	Dialogs, toasts
+29	Share / Export	Doctor summary
+30	Sun / Moon	Dark mode toggle
+31	Link	Sheet URL connection
+32	Notification Bell	Settings
+Summary
+Category	Icons	Variants	Total SVGs
+Period Status	3	× 3 modes	9
+Symptoms	12	× 3 modes	36
+Onboarding Cards	3	× 1 each	3
+Shared UI	14	× 1	14
+Total	32		62 SVGs
+Design the 48 mode-specific ones (period status + symptoms + onboarding cards) first — those are the personality of the app. The 14 shared UI icons can be grabbed from an open-source set like Lucide or Phosphor and customized if needed.
+
+Switch me to Agent mode when you want me to start building.

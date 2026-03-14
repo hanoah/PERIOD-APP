@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# impeccable setup — link all skills to ~/.claude/skills/
+set -e
+
+IMPECCABLE_DIR="$(cd "$(dirname "$0")" && pwd)"
+SKILLS_DIR="$(dirname "$IMPECCABLE_DIR")"
+
+if [ "$(basename "$SKILLS_DIR")" != "skills" ]; then
+  echo "impeccable setup: run from ~/.claude/skills/impeccable" >&2
+  exit 1
+fi
+
+linked=()
+for skill_dir in "$IMPECCABLE_DIR/.claude/skills"/*/; do
+  [ -d "$skill_dir" ] || continue
+  [ -f "$skill_dir/SKILL.md" ] || continue
+  skill_name="$(basename "$skill_dir")"
+  target="$SKILLS_DIR/$skill_name"
+  if [ -L "$target" ] || [ ! -e "$target" ]; then
+    ln -snf "impeccable/.claude/skills/$skill_name" "$target"
+    linked+=("$skill_name")
+  fi
+done
+
+echo "impeccable ready."
+[ ${#linked[@]} -gt 0 ] && echo " linked skills: ${linked[*]}"

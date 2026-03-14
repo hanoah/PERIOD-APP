@@ -1,0 +1,120 @@
+/* Icon mode overrides — per-mode SVG/visual tweaks */
+/* Custom icons loaded per data-mode; shared UI uses currentColor */
+
+/* Fallback before JS applies mode */
+:root {
+  --font-body: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Mode-specific typography (after :root so they win at equal specificity) */
+[data-mode="alien"] {
+  --font-body: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+[data-mode="girly"] {
+  --font-body: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+}
+
+[data-mode="neutral"] {
+  --font-body: 'Lexend', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Symptom grid — SVG icon + label */
+.symptom-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-width: 64px;
+  min-height: 56px;
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+
+.symptom-icon.active {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  color: var(--color-primary);
+}
+
+.symptom-icon:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.symptom-icon-svg {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.symptom-icon-svg svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.symptom-label {
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  text-align: center;
+  color: inherit;
+}
+
+.symptom-icon.active .symptom-label {
+  color: var(--color-primary);
+}
+
+[data-mode="alien"] .period-btn-icon {
+  /* Alien mode uses icons/alien/* — loaded via JS or background-image */
+}
+
+[data-mode="girly"] .period-btn-icon {
+  /* Girly mode uses icons/girly/* */
+}
+
+[data-mode="neutral"] .period-btn-icon {
+  /* Neutral mode uses icons/neutral/* — geometric shapes */
+}
+
+/* Alien — control panels, electric */
+[data-mode="alien"] .card {
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 1px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+[data-mode="alien"] .period-btn {
+  box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+[data-mode="alien"][data-dark="true"] .period-btn {
+  box-shadow: 0 0 24px color-mix(in srgb, var(--color-primary) 50%, transparent);
+}
+
+/* Girly — stickers, bubbly */
+[data-mode="girly"] .card,
+[data-mode="girly"] .onboarding-card {
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--color-primary) 12%, transparent), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+[data-mode="girly"] .onboarding-card {
+  border-radius: 24px;
+}
+[data-mode="girly"] .period-btn {
+  border-radius: 999px;
+  min-height: 76px;
+  font-size: var(--text-2xl);
+}
+
+/* Neutral — editorial refinement */
+[data-mode="neutral"] .card {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+[data-mode="neutral"] .page-title {
+  color: var(--color-text);
+  font-weight: 800;
+}

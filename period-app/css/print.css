@@ -1,0 +1,25 @@
+/* Print styles — doctor summary */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .nav,
+  .toast,
+  .btn,
+  .doctor-actions,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    max-width: 100%;
+    padding: 0;
+  }
+  .doctor-summary {
+    font-size: 12pt;
+  }
+  .doctor-table {
+    font-size: 10pt;
+  }
+}

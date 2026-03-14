@@ -1,0 +1,103 @@
+/* Color palettes — mode-bound, from mood boards (CLAUDE.md) */
+/* Each mode is a full visual identity. Palette = mode. */
+
+/* Fallback before JS applies palette (matches neutral light) */
+:root {
+  --color-primary: #4ecdc4;
+  --color-bg: #f7f7f7;
+  --color-surface: #ffffff;
+  --color-text: #2d3436;
+  --color-text-muted: #636e72;
+  --color-accent: #00b894;
+  --color-period: #e17055;
+  --color-predicted: oklch(70% 0.12 25 / 0.35);
+  --color-danger: #d63031;
+  --color-border: #dfe6e9;
+}
+
+/* Alien — quirky, sci-fi, neon on deep space (dark-first) */
+[data-palette="alien"],
+html[data-palette="alien"] {
+  --color-primary: #39ff14;
+  --color-bg: oklch(98% 0.015 280);
+  --color-surface: oklch(100% 0.005 280);
+  --color-text: #0d0221;
+  --color-text-muted: #4a3d6e;
+  --color-accent: #bf00ff;
+  --color-period: #e11d48;
+  --color-predicted: oklch(70% 0.2 15 / 0.35);
+  --color-danger: #dc2626;
+  --color-border: oklch(90% 0.02 280);
+}
+
+[data-palette="alien"][data-dark="true"],
+html[data-palette="alien"][data-dark="true"] {
+  --color-primary: #39ff14;
+  --color-bg: #0d0221;
+  --color-surface: #1a1a2e;
+  --color-text: oklch(98% 0.01 280);
+  --color-text-muted: oklch(75% 0.06 300);
+  --color-accent: #bf00ff;
+  --color-period: #ff69b4;
+  --color-predicted: oklch(60% 0.25 330 / 0.5);
+  --color-danger: #f87171;
+  --color-border: oklch(45% 0.08 290);
+}
+
+/* Girly — feminine, kawaii, pink monochrome (light-first) */
+[data-palette="girly"],
+html[data-palette="girly"] {
+  --color-primary: #ff69b4;
+  --color-bg: #fff0f5;
+  --color-surface: oklch(99.5% 0.02 350);
+  --color-text: #3d1a2a;
+  --color-text-muted: #8b5a6b;
+  --color-accent: #ff1493;
+  --color-period: #ff1493;
+  --color-predicted: oklch(75% 0.2 350 / 0.4);
+  --color-danger: #e11d48;
+  --color-border: #ffc0cb;
+}
+
+[data-palette="girly"][data-dark="true"],
+html[data-palette="girly"][data-dark="true"] {
+  --color-primary: #ffb6c1;
+  --color-bg: #2d1b24;
+  --color-surface: #3d2832;
+  --color-text: #fff0f5;
+  --color-text-muted: oklch(70% 0.08 350);
+  --color-accent: #ff69b4;
+  --color-period: #ff69b4;
+  --color-predicted: oklch(60% 0.2 350 / 0.5);
+  --color-danger: #fda4af;
+  --color-border: oklch(45% 0.1 350);
+}
+
+/* Neutral — clinical, professional, mint on white (light-first) */
+[data-palette="neutral"],
+html[data-palette="neutral"] {
+  --color-primary: #4ecdc4;
+  --color-bg: #f7f7f7;
+  --color-surface: #ffffff;
+  --color-text: #2d3436;
+  --color-text-muted: #636e72;
+  --color-accent: #00b894;
+  --color-period: #e17055;
+  --color-predicted: oklch(70% 0.12 25 / 0.35);
+  --color-danger: #d63031;
+  --color-border: #dfe6e9;
+}
+
+[data-palette="neutral"][data-dark="true"],
+html[data-palette="neutral"][data-dark="true"] {
+  --color-primary: #81ecec;
+  --color-bg: #2d3436;
+  --color-surface: #353b3e;
+  --color-text: #dfe6e9;
+  --color-text-muted: #b2bec3;
+  --color-accent: #55efc4;
+  --color-period: #fab1a0;
+  --color-predicted: oklch(55% 0.12 25 / 0.5);
+  --color-danger: #ff7675;
+  --color-border: #4a5568;
+}

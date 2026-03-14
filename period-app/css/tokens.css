@@ -1,0 +1,49 @@
+/**
+ * Design tokens — spacing, typography, radius, motion.
+ * Colors live in palettes.css (mode-bound). Font family in modes.css.
+ */
+
+:root {
+  /* Spacing — 4px base */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-sm-x: 0.75rem; /* 12px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.25rem;  /* 20px */
+  --space-xl: 1.5rem;   /* 24px */
+  --space-2xl: 2rem;    /* 32px */
+
+  /* Typography scale */
+  --text-xs: 0.65rem;
+  --text-sm: 0.75rem;
+  --text-base: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 3rem;
+  --text-5xl: 4rem;
+  --text-hero: clamp(3.5rem, 12vw, 5rem);
+
+  /* Font weights */
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-btn-hover: 0 4px 12px;
+
+  /* Motion */
+  --ease-out: ease-out;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast: 0.15s;
+  --duration-normal: 0.25s;
+  --duration-slow: 0.4s;
+}
