@@ -2,5 +2,8 @@
   "name": "period-tracker",
   "version": "0.1.0",
   "type": "module",
-  "private": true
+  "private": true,
+  "scripts": {
+    "generate-symptom-icons": "node scripts/generate-symptom-icons.cjs"
+  }
 }

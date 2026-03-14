@@ -1,7 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M5 4h10v12H5z"/>
-  <path d="M5 8h10"/>
-  <path d="M5 12h10"/>
-  <path d="M8 6v8"/>
-  <path d="M12 6v8"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="1024.0px" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="1024.0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs/>
+<g id="Layer-1">
+<path d="M127.816 650.375C138.787 672.318 165.761 691.162 181.963 709.679C219.236 752.277 259.369 791.05 295.413 834.302C300.766 840.726 342.725 890.158 346.122 889.308C346.489 889.216 403.587 823.288 406.285 819.691C430.242 787.749 455.627 757.626 479.34 726.009C502.317 695.373 531.643 672.111 548.957 637.483C552.461 630.475 585.915 585.717 585.915 585.055" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M129.535 637.483C135.417 625.719 155.147 621.69 165.633 615.137C178.819 606.895 190.283 595.071 201.73 585.055C257.716 536.068 301.087 458.025 368.468 424.334" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M316.04 387.376C316.04 383.862 319.049 382.864 322.057 381.36C336.516 374.13 376.612 332.37 385.658 332.37" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M603.964 634.045C607.894 626.184 658.91 593.409 656.391 583.336C652.477 567.679 618.615 533.528 606.542 521.454C581.092 496.004 558.719 465.319 530.049 442.383C507.271 424.16 481.542 409.937 458.713 391.674C436.347 373.781 414.334 346.708 389.095 334.089" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M308.305 395.971C338.864 395.971 369.387 411.886 398.55 419.177C404.275 420.608 420.199 418.48 424.334 422.615C427.393 425.674 426.904 476.754 433.788 483.637C439.71 489.559 498.556 483.085 509.422 493.951C519.54 504.07 498.996 542.58 511.141 550.676C529.183 562.704 568.847 537.046 583.336 551.536C591.181 559.38 594.269 612.077 601.385 626.31" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M424.334 344.403C433.513 335.224 447.431 329.014 457.853 321.197C511.252 281.148 559.3 232.477 611.699 190.557C629.036 176.688 671.022 137.05 690.77 132.113C701.922 129.325 717.75 160.298 726.009 166.492C763.535 194.637 793.033 232.446 830.005 260.175C834.564 263.594 862.931 287.474 861.805 291.975C860.028 299.086 813.535 347.121 806.799 353.857C783.86 376.796 767.493 406.213 747.495 431.21C727.6 456.079 696.212 474.184 671.002 493.092C656.337 504.091 642.587 524.489 626.31 532.627" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M533.487 435.507C532.132 432.797 578.356 396.395 584.196 389.095C618.674 345.998 664.453 311.022 696.787 267.91C707.955 253.019 730.506 232.142 746.636 224.077" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M621.153 190.557C621.153 198.431 638.514 213.992 643.499 220.639C668.792 254.363 690.503 292.634 725.149 318.619C746.172 334.386 762.107 356.436 786.172 368.468C789.46 370.112 792.498 373.554 793.907 369.328" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+<path d="M525.752 287.678C535.267 306.708 559.712 324.077 573.023 341.824C607.767 388.15 653.914 436.847 706.241 463.01" fill="none" opacity="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="19.4615"/>
+</g>
 </svg>
