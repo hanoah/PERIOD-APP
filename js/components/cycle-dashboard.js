@@ -113,7 +113,7 @@ function renderDotCalendar(container, periods, metrics) {
   const grid = document.createElement('div');
   grid.className = 'dot-calendar-grid';
   grid.style.display = 'grid';
-  grid.style.gridTemplateColumns = `repeat(31, ${cellSize}px)`;
+  grid.style.gridTemplateColumns = `repeat(31, minmax(0, 1fr))`;
   grid.style.gap = `${gap}px`;
 
   for (let m = 0; m < monthCount; m++) {
@@ -121,10 +121,9 @@ function renderDotCalendar(container, periods, metrics) {
       const dateStr = `${year}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
       const cell = document.createElement('div');
       cell.className = 'dot-cell';
-      cell.style.width = `${cellSize}px`;
-      cell.style.height = `${cellSize}px`;
       cell.style.borderRadius = '50%';
       cell.style.background = 'transparent';
+      cell.style.aspectRatio = '1';
 
       const realDate = new Date(year, m, d);
       if (realDate.getMonth() !== m || realDate.getDate() !== d) {
