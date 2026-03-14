@@ -35,6 +35,7 @@
   color: var(--color-text);
   cursor: pointer;
   transition: border-color var(--duration-fast), background var(--duration-fast);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .symptom-icon.active {
