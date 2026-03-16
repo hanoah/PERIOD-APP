@@ -1,12 +1,10 @@
 /**
  * Symptom icon grid — tap to toggle for a given date.
- * Symptoms are stored per-period; we need to map date → period and date → symptoms.
- * For "today's symptoms" we attribute to the current open period or the most recent period
- * that contains today.
+ * Symptoms are stored per-period when on a period, or per-date via dailySymptoms
+ * when not on a period.
  */
 
-import { getPeriods } from '../db.js';
-import { savePeriod } from '../db.js';
+import { getPeriods, savePeriod, getDailySymptoms, saveDailySymptoms } from '../db.js';
 import { SYMPTOM_KEYS } from '../metrics.js';
 import { SYMPTOM_SVGS } from '../symptom-icons.js';
 
@@ -36,7 +34,6 @@ export async function renderSymptomGrid(container, date, periodId) {
   let entry = periodId ? periods.find((p) => p.id === periodId) : null;
 
   if (!entry) {
-    // Find period that contains this date
     const d = new Date(date).getTime();
     for (const p of periods) {
       const start = new Date(p.startDate).getTime();
@@ -48,7 +45,10 @@ export async function renderSymptomGrid(container, date, periodId) {
     }
   }
 
-  const symptoms = entry?.symptoms || [];
+  const useDaily = !entry;
+  const symptoms = useDaily
+    ? await getDailySymptoms(date)
+    : (entry?.symptoms || []);
   const activeSet = new Set(Array.isArray(symptoms) ? symptoms : []);
 
   container.innerHTML = '';
@@ -68,15 +68,16 @@ export async function renderSymptomGrid(container, date, periodId) {
     btn.innerHTML = `<span class="symptom-icon-svg" aria-hidden="true">${SYMPTOM_SVGS[key] || ''}</span><span class="symptom-label">${LABELS[key]}</span>`;
 
     btn.addEventListener('click', async () => {
-      if (!entry) {
-        // No period for this date — can't log symptoms
-        return;
-      }
       const next = new Set(activeSet);
       if (next.has(key)) next.delete(key);
       else next.add(key);
-      entry.symptoms = Array.from(next);
-      await savePeriod(entry);
+
+      if (useDaily) {
+        await saveDailySymptoms(date, Array.from(next));
+      } else {
+        entry.symptoms = Array.from(next);
+        await savePeriod(entry);
+      }
       await renderSymptomGrid(container, date, periodId);
     });
 
