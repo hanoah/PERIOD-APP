@@ -4,9 +4,10 @@
  */
 
 const DB_NAME = 'period-tracker';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_PERIODS = 'periods';
 const STORE_SETTINGS = 'settings';
+const STORE_DAILY_SYMPTOMS = 'dailySymptoms';
 
 let db = null;
 
@@ -45,6 +46,9 @@ export async function open() {
         }
         if (!database.objectStoreNames.contains(STORE_SETTINGS)) {
           database.createObjectStore(STORE_SETTINGS, { keyPath: 'key' });
+        }
+        if (!database.objectStoreNames.contains(STORE_DAILY_SYMPTOMS)) {
+          database.createObjectStore(STORE_DAILY_SYMPTOMS, { keyPath: 'date' });
         }
       };
     } catch (err) {
@@ -212,12 +216,61 @@ export async function saveSettings(obj) {
 }
 
 /**
+ * Get daily symptoms for a specific date.
+ * @param {string} date - ISO date (YYYY-MM-DD)
+ * @returns {Promise<string[]>}
+ */
+export async function getDailySymptoms(date) {
+  const database = await open();
+  return new Promise((resolve, reject) => {
+    const tx = database.transaction(STORE_DAILY_SYMPTOMS, 'readonly');
+    const request = tx.objectStore(STORE_DAILY_SYMPTOMS).get(date);
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => resolve(request.result?.symptoms || []);
+  });
+}
+
+/**
+ * Save daily symptoms for a specific date.
+ * @param {string} date - ISO date (YYYY-MM-DD)
+ * @param {string[]} symptoms
+ * @returns {Promise<void>}
+ */
+export async function saveDailySymptoms(date, symptoms) {
+  const database = await open();
+  return new Promise((resolve, reject) => {
+    const tx = database.transaction(STORE_DAILY_SYMPTOMS, 'readwrite');
+    tx.objectStore(STORE_DAILY_SYMPTOMS).put({ date, symptoms, updatedAt: Date.now() });
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+/**
+ * Get all daily symptom entries.
+ * @returns {Promise<Array<{date: string, symptoms: string[]}>>}
+ */
+export async function getAllDailySymptoms() {
+  const database = await open();
+  return new Promise((resolve, reject) => {
+    const tx = database.transaction(STORE_DAILY_SYMPTOMS, 'readonly');
+    const request = tx.objectStore(STORE_DAILY_SYMPTOMS).getAll();
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => {
+      const entries = request.result || [];
+      entries.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+      resolve(entries);
+    };
+  });
+}
+
+/**
  * Export all data (for debugging / restore).
  * @returns {Promise<{ periods: Array, settings: Object }>}
  */
 export async function exportAll() {
   const database = await open();
-  const [periods, settingsRows] = await Promise.all([
+  const [periods, settingsRows, dailySymptoms] = await Promise.all([
     getPeriods(),
     new Promise((resolve, reject) => {
       const tx = database.transaction(STORE_SETTINGS, 'readonly');
@@ -225,10 +278,11 @@ export async function exportAll() {
       request.onerror = () => reject(request.error);
       request.onsuccess = () => resolve(request.result || []);
     }),
+    getAllDailySymptoms(),
   ]);
   const settings = {};
   for (const row of settingsRows) {
     if (row?.key) settings[row.key] = row.value;
   }
-  return { periods, settings };
+  return { periods, settings, dailySymptoms };
 }

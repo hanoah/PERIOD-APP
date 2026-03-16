@@ -2,7 +2,7 @@
  * Doctor summary — clean, printable view for sharing with doctor.
  */
 
-import { getPeriods } from '../db.js';
+import { getPeriods, getAllDailySymptoms } from '../db.js';
 import { computeMetrics } from '../metrics.js';
 import { getSettings } from '../db.js';
 import { formatDate } from '../utils.js';
@@ -11,6 +11,7 @@ import { icon } from '../icons.js';
 export async function renderDoctor(container) {
   const periods = await getPeriods();
   const settings = await getSettings();
+  const dailySymptoms = await getAllDailySymptoms();
   const m = computeMetrics(periods);
 
   const html = `
@@ -65,6 +66,30 @@ export async function renderDoctor(container) {
           </tbody>
         </table>
       </div>
+      ${dailySymptoms.length > 0 ? `
+        <div class="doctor-daily">
+          <h3>Symptoms logged outside periods</h3>
+          <table class="doctor-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Symptoms</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${dailySymptoms
+                .filter((d) => d.symptoms?.length > 0)
+                .map((d) => `
+                  <tr>
+                    <td>${formatDate(d.date)}</td>
+                    <td>${d.symptoms.join(', ')}</td>
+                  </tr>
+                `)
+                .join('')}
+            </tbody>
+          </table>
+        </div>
+      ` : ''}
       <div class="doctor-actions">
         <button type="button" class="btn btn-primary" id="doctor-print">${icon('printer')} Print / Save as PDF</button>
         <button type="button" class="btn btn-secondary" id="doctor-copy">${icon('duplicate')} Copy summary</button>
