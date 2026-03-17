@@ -1,6 +1,6 @@
 /* Service worker — cache app shell for offline */
 
-const CACHE_NAME = 'period-tracker-v11';
+const CACHE_NAME = 'period-tracker-v12';
 const ASSETS = [
   './',
   './index.html',

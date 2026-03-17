@@ -22,6 +22,16 @@ const SYMPTOM_LABELS = {
   flowHeavy: 'Heavy flow',
 };
 
+function monthKey(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function monthLabel(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+}
+
 export async function renderHistory(container) {
   const periods = await getPeriods();
   const dailySymptoms = (await getAllDailySymptoms()).filter((d) => d.symptoms?.length > 0);
@@ -51,10 +61,6 @@ export async function renderHistory(container) {
       </div>
     ` : `
       <div class="history-list" id="history-list"></div>
-      ${dailySymptoms.length > 0 ? `
-        <h2 class="page-subtitle">Symptoms (non-period days)</h2>
-        <div class="history-list" id="daily-symptom-list"></div>
-      ` : ''}
     `}
   `;
 
@@ -134,16 +140,26 @@ export async function renderHistory(container) {
 
   const listEl = document.getElementById('history-list');
   if (listEl) {
-    for (const p of periods) {
-      const card = await renderHistoryEntry(listEl, p);
-      listEl.appendChild(card);
-    }
-  }
+    const merged = [
+      ...periods.map((p) => ({ type: 'period', sortDate: p.startDate, data: p })),
+      ...dailySymptoms.map((d) => ({ type: 'daily', sortDate: d.date, data: d })),
+    ].sort((a, b) => b.sortDate.localeCompare(a.sortDate));
 
-  const dailyEl = document.getElementById('daily-symptom-list');
-  if (dailyEl) {
-    for (const d of dailySymptoms) {
-      dailyEl.appendChild(renderDailySymptomEntry(d));
+    let currentMonth = null;
+    for (const item of merged) {
+      const mk = monthKey(item.sortDate);
+      if (mk !== currentMonth) {
+        currentMonth = mk;
+        const header = document.createElement('h3');
+        header.className = 'history-month-header';
+        header.textContent = monthLabel(item.sortDate);
+        listEl.appendChild(header);
+      }
+      if (item.type === 'period') {
+        listEl.appendChild(await renderHistoryEntry(listEl, item.data));
+      } else {
+        listEl.appendChild(renderDailySymptomEntry(item.data));
+      }
     }
   }
 }
@@ -161,7 +177,7 @@ function renderHistoryEntry(parent, entry) {
   const forgotIndicator = isOpen && openDays >= 10;
 
   const card = document.createElement('div');
-  card.className = 'card history-entry';
+  card.className = 'history-entry';
   card.dataset.id = entry.id;
 
   const symptomsText = (entry.symptoms || []).map((s) => SYMPTOM_LABELS[s] || s).join(', ');
@@ -266,9 +282,10 @@ function renderDailySymptomEntry(entry) {
   const symptomsText = entry.symptoms.map((s) => SYMPTOM_LABELS[s] || s).join(', ');
 
   const card = document.createElement('div');
-  card.className = 'card history-entry history-daily';
+  card.className = 'history-entry history-daily';
 
   card.innerHTML = `
+    <p class="history-daily-label">Daily log</p>
     <div class="history-entry-header">
       <div>
         <strong>${formatDateShort(entry.date)}</strong>
