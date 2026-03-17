@@ -8,6 +8,21 @@ import { getSettings } from '../db.js';
 import { formatDate } from '../utils.js';
 import { icon } from '../icons.js';
 
+const SYMPTOM_LABELS = {
+  cramps: 'Cramps',
+  headache: 'Headache',
+  fatigue: 'Fatigue',
+  bloating: 'Bloating',
+  mood: 'Mood',
+  backPain: 'Back pain',
+  breastTenderness: 'Breast tenderness',
+  nausea: 'Nausea',
+  acne: 'Acne',
+  cravings: 'Cravings',
+  insomnia: 'Insomnia',
+  flowHeavy: 'Heavy flow',
+};
+
 export async function renderDoctor(container) {
   const periods = await getPeriods();
   const settings = await getSettings();
@@ -17,9 +32,9 @@ export async function renderDoctor(container) {
   const html = `
     <h1 class="page-title doctor-title">Period Summary</h1>
 
-    ${periods.length === 0 ? `
+    ${periods.length === 0 && dailySymptoms.filter((d) => d.symptoms?.length > 0).length === 0 ? `
       <div class="card card-empty">
-        <p>Nothing to export yet. Log periods to build your summary.</p>
+        <p>Nothing to export yet. Log periods or symptoms to build your summary.</p>
         <a href="#/" class="btn btn-primary">Go to Home</a>
       </div>
     ` : `
@@ -51,7 +66,7 @@ export async function renderDoctor(container) {
                   const dur = p.endDate
                     ? Math.round((new Date(p.endDate) - new Date(p.startDate)) / (24 * 60 * 60 * 1000))
                     : '—';
-                  const syms = (p.symptoms || []).join(', ') || '—';
+                  const syms = (p.symptoms || []).map((s) => SYMPTOM_LABELS[s] || s).join(', ') || '—';
                   return `
                     <tr>
                       <td>${formatDate(p.startDate)}</td>
@@ -82,7 +97,7 @@ export async function renderDoctor(container) {
                 .map((d) => `
                   <tr>
                     <td>${formatDate(d.date)}</td>
-                    <td>${d.symptoms.join(', ')}</td>
+                    <td>${d.symptoms.map((s) => SYMPTOM_LABELS[s] || s).join(', ')}</td>
                   </tr>
                 `)
                 .join('')}
