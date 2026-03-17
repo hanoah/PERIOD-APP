@@ -9,6 +9,27 @@ const PALETTES = ['alien', 'girly', 'neutral'];
 const MODES = ['alien', 'girly', 'neutral'];
 const LEGACY_PALETTES = ['ocean', 'sunset', 'forest', 'lavender', 'mono'];
 
+const MODE_FONTS = {
+  alien: 'Space+Grotesk:wght@400;500;600;700',
+  girly: 'Quicksand:wght@400;500;600;700',
+  neutral: 'Lexend:wght@400;500;600;700',
+};
+
+let _fontLinkEl = null;
+
+function loadFontForMode(mode) {
+  const family = MODE_FONTS[mode] || MODE_FONTS.neutral;
+  const href = `https://fonts.googleapis.com/css2?family=${family}&display=swap`;
+  if (_fontLinkEl && _fontLinkEl.getAttribute('href') === href) return;
+  if (!_fontLinkEl) {
+    _fontLinkEl = document.createElement('link');
+    _fontLinkEl.rel = 'stylesheet';
+    _fontLinkEl.id = 'mode-font';
+    document.head.appendChild(_fontLinkEl);
+  }
+  _fontLinkEl.href = href;
+}
+
 function resolvePalette(settings) {
   const p = settings.palette;
   if (PALETTES.includes(p)) return p;
@@ -49,6 +70,8 @@ export function applyTheme({ palette, theme, dark }) {
   root.setAttribute('data-palette', palette);
   root.setAttribute('data-mode', theme);
   root.setAttribute('data-dark', dark ? 'true' : 'false');
+
+  loadFontForMode(theme);
 
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) {
