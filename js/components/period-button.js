@@ -51,19 +51,22 @@ export async function renderHome(container) {
   const predicted = metrics.predictedNextStart;
   const avgCycle = metrics.avgCycleLength ?? 28;
 
+  const symptomLabel = hasOpen ? 'Period symptoms' : 'How are you feeling today?';
+
   const html = `
     <div class="home">
-      <div class="home-cycle">
-        <span class="home-cycle-day">${cycleDay != null ? `Day ${cycleDay}` : '—'}</span>
-        <span class="home-cycle-of"> of ~${avgCycle}</span>
-        ${phase ? `<span class="home-phase">${phase} Phase</span>` : ''}
-      </div>
-
-      <div class="period-btn-wrap">
-        <button class="btn btn-primary period-btn" id="period-btn" type="button" aria-label="${hasOpen ? 'End period' : 'Start period'}">
-          <span class="period-btn-icon" aria-hidden="true">${hasOpen ? icon('circle') : icon('circle-filled')}</span>
-          <span>${hasOpen ? 'Period Ended' : 'Period Started'}</span>
-        </button>
+      <div class="home-header">
+        <div class="home-cycle">
+          <span class="home-cycle-day">${cycleDay != null ? `Day ${cycleDay}` : '—'}</span>
+          <span class="home-cycle-of">of ~${avgCycle}</span>
+          ${phase ? `<span class="home-phase">${phase}</span>` : ''}
+        </div>
+        <div class="period-btn-wrap">
+          <button class="btn period-btn ${hasOpen ? 'period-btn--active' : ''}" id="period-btn" type="button" aria-label="${hasOpen ? 'End period' : 'Start period'}">
+            <span class="period-btn-icon" aria-hidden="true">${hasOpen ? icon('circle') : icon('circle-filled')}</span>
+            <span>${hasOpen ? 'Period Ended' : 'Period Started'}</span>
+          </button>
+        </div>
       </div>
 
       ${predicted ? `
@@ -73,7 +76,7 @@ export async function renderHome(container) {
       ` : ''}
 
       <div class="home-symptoms" id="home-symptoms">
-        <p class="home-symptoms-label">Today's symptoms</p>
+        <p class="home-symptoms-label">${symptomLabel}</p>
         <div class="symptom-grid" id="symptom-grid"></div>
       </div>
 

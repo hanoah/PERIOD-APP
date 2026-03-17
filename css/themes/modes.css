@@ -107,8 +107,6 @@
 }
 [data-mode="girly"] .period-btn {
   border-radius: 999px;
-  min-height: 76px;
-  font-size: var(--text-2xl);
 }
 
 /* Neutral — editorial refinement */
