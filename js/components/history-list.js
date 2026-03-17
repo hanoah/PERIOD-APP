@@ -2,7 +2,7 @@
  * History — list of period entries, tap to edit, delete with confirm.
  */
 
-import { getPeriods, savePeriod, deletePeriod } from '../db.js';
+import { getPeriods, savePeriod, deletePeriod, getAllDailySymptoms, saveDailySymptoms } from '../db.js';
 import { formatDateShort, showToast } from '../utils.js';
 import { icon } from '../icons.js';
 import { renderSymptomGrid } from './symptom-grid.js';
@@ -24,6 +24,8 @@ const SYMPTOM_LABELS = {
 
 export async function renderHistory(container) {
   const periods = await getPeriods();
+  const dailySymptoms = (await getAllDailySymptoms()).filter((d) => d.symptoms?.length > 0);
+  const hasAny = periods.length > 0 || dailySymptoms.length > 0;
 
   const html = `
     <h1 class="page-title">History</h1>
@@ -42,13 +44,17 @@ export async function renderHistory(container) {
       </div>
     </div>
 
-    ${periods.length === 0 ? `
+    ${!hasAny ? `
       <div class="card card-empty">
         <p>No periods logged yet.</p>
         <a href="#/" class="btn btn-primary">Go to Home</a>
       </div>
     ` : `
       <div class="history-list" id="history-list"></div>
+      ${dailySymptoms.length > 0 ? `
+        <h2 class="page-subtitle">Symptoms (non-period days)</h2>
+        <div class="history-list" id="daily-symptom-list"></div>
+      ` : ''}
     `}
   `;
 
@@ -131,6 +137,13 @@ export async function renderHistory(container) {
     for (const p of periods) {
       const card = await renderHistoryEntry(listEl, p);
       listEl.appendChild(card);
+    }
+  }
+
+  const dailyEl = document.getElementById('daily-symptom-list');
+  if (dailyEl) {
+    for (const d of dailySymptoms) {
+      dailyEl.appendChild(renderDailySymptomEntry(d));
     }
   }
 }
@@ -244,6 +257,50 @@ function renderHistoryEntry(parent, entry) {
     } finally {
       saveBtn.disabled = false;
     }
+  });
+
+  return card;
+}
+
+function renderDailySymptomEntry(entry) {
+  const symptomsText = entry.symptoms.map((s) => SYMPTOM_LABELS[s] || s).join(', ');
+
+  const card = document.createElement('div');
+  card.className = 'card history-entry history-daily';
+
+  card.innerHTML = `
+    <div class="history-entry-header">
+      <div>
+        <strong>${formatDateShort(entry.date)}</strong>
+      </div>
+      <div class="history-entry-actions">
+        <button type="button" class="btn btn-ghost history-edit-btn" aria-label="Edit symptoms">${icon('pen')}</button>
+        <button type="button" class="btn btn-ghost history-delete-btn" aria-label="Delete">${icon('trash')}</button>
+      </div>
+    </div>
+    <p class="history-symptoms">${symptomsText}</p>
+    <div class="history-edit-form" hidden>
+      <div class="history-symptom-edit" id="daily-symptom-edit-${entry.date}"></div>
+    </div>
+  `;
+
+  const editBtn = card.querySelector('.history-edit-btn');
+  const deleteBtn = card.querySelector('.history-delete-btn');
+  const form = card.querySelector('.history-edit-form');
+  const symptomEdit = card.querySelector('.history-symptom-edit');
+
+  editBtn.addEventListener('click', () => {
+    form.hidden = !form.hidden;
+    if (!form.hidden && symptomEdit) {
+      renderSymptomGrid(symptomEdit, entry.date, null);
+    }
+  });
+
+  deleteBtn.addEventListener('click', async () => {
+    if (!confirm('Delete symptoms for this day?')) return;
+    await saveDailySymptoms(entry.date, []);
+    showToast('Symptoms cleared');
+    if (window.__app?.route) window.__app.route();
   });
 
   return card;
